@@ -78,4 +78,10 @@ export class UserService {
   async getUserByEmail(email: string): Promise<User> {
     return this.userRepositoy.findOne({ email });
   }
+
+  async getUserById(id: string): Promise<User> {
+    const user = await this.userRepositoy.findOne({ id });
+    delete user.password;
+    return user;
+  }
 }

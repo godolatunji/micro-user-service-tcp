@@ -35,4 +35,9 @@ export class UserController {
   getUserByEmail(email: string): Promise<User> {
     return this.userService.getUserByEmail(email);
   }
+
+  @MessagePattern({ cmd: 'getUserById' })
+  getUserById({ headers, data }): Promise<User> {
+    return this.userService.getUserById(data.id);
+  }
 }
