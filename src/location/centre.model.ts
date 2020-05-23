@@ -10,5 +10,5 @@ export class Centre {
   name: string;
 
   @ManyToOne(type => City, null, { eager: true })
-  state: City;
+  city: City;
 }

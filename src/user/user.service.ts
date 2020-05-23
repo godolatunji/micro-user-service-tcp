@@ -45,7 +45,18 @@ export class UserService {
   }
 
   async loginUser(email: string, password: string): Promise<User> {
-    let user: User = await this.userRepositoy.findOne({ email });
+    let user: User = await this.userRepositoy.findOne({
+      select: [
+        'id',
+        'firstname',
+        'lastname',
+        'email',
+        'password',
+        'fields',
+        'active',
+      ],
+      where: { email },
+    });
 
     if (!user) {
       throw new RpcException('user email does not exist');
@@ -81,7 +92,6 @@ export class UserService {
 
   async getUserById(id: string): Promise<User> {
     const user = await this.userRepositoy.findOne({ id });
-    delete user.password;
     return user;
   }
 }
